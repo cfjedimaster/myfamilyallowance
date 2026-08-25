@@ -1,0 +1,35 @@
+---
+description: Require CHANGELOG.md updates for any work that will be pushed
+alwaysApply: true
+---
+
+# Update the Changelog
+
+When making changes that will eventually be committed and pushed, update `CHANGELOG.md` in the same change set.
+
+## Requirements
+
+- Add an entry for user-facing and notable internal changes before committing/pushing.
+- Skip trivial-only edits (typos, formatting-only, comment-only) unless they are the whole change being shipped.
+- Keep entries concise and written for humans reading the project history.
+
+## Format
+
+Match the existing style in `CHANGELOG.md`:
+
+- Group entries under a `## YYYY-MM-DD` heading for today's date.
+- If today's date heading already exists, append bullets under it.
+- If it does not exist, add a new heading at the top (below `# Changelog`).
+- Use a short imperative or descriptive bullet per change.
+
+```markdown
+## 2026-08-25
+
+- Replace the family page “Lock” text with a lock icon, and show a “Logout” tooltip on hover.
+- Make the family page URL clickable on admin, with a clipboard copy control.
+```
+
+## Checklist before push
+
+- [ ] `CHANGELOG.md` includes an entry for this change under today's date
+- [ ] The changelog update is included in the commit being pushed
