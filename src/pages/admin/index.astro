@@ -30,44 +30,6 @@ const hasPassword = Boolean(user.familyPasswordHash);
     {error && <div class="flash flash-err">{error}</div>}
 
     <div class="panel">
-      <h2>Family page</h2>
-      <p class="meta">Share this URL with your kids. They’ll need the family password.</p>
-      <div class="family-url-row">
-        <a class="family-url" href={familyUrl} target="_blank" rel="noopener noreferrer">{familyUrl}</a>
-        <button
-          type="button"
-          class="family-url-copy"
-          data-url={familyUrl}
-          aria-label="Copy URL"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-          <span class="family-url-copied" aria-hidden="true">Copied!</span>
-        </button>
-      </div>
-
-      <form class="form-grid" method="POST" action="/api/admin/family-password" style="margin-top:1rem">
-        <label>
-          {hasPassword ? 'Change family password' : 'Set family password'}
-          <input
-            type="password"
-            name="password"
-            required
-            minlength="4"
-            maxlength="72"
-            autocomplete="new-password"
-            placeholder="At least 4 characters"
-          />
-        </label>
-        <button class="btn btn-primary" type="submit">
-          {hasPassword ? 'Update password' : 'Save password'}
-        </button>
-      </form>
-    </div>
-
-    <div class="panel">
       <h2>Kids</h2>
       {kids.length === 0 ? (
         <p class="muted">No kids yet. Add one below to get started.</p>
@@ -161,6 +123,44 @@ const hasPassword = Boolean(user.familyPasswordHash);
         <div class="row">
           <button class="btn btn-primary" type="submit">Add kid</button>
         </div>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>Family page</h2>
+      <p class="meta">Share this URL with your kids. They’ll need the family password.</p>
+      <div class="family-url-row">
+        <a class="family-url" href={familyUrl} target="_blank" rel="noopener noreferrer">{familyUrl}</a>
+        <button
+          type="button"
+          class="family-url-copy"
+          data-url={familyUrl}
+          aria-label="Copy URL"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="family-url-copied" aria-hidden="true">Copied!</span>
+        </button>
+      </div>
+
+      <form class="form-grid" method="POST" action="/api/admin/family-password" style="margin-top:1rem">
+        <label>
+          {hasPassword ? 'Change family password' : 'Set family password'}
+          <input
+            type="password"
+            name="password"
+            required
+            minlength="4"
+            maxlength="72"
+            autocomplete="new-password"
+            placeholder="At least 4 characters"
+          />
+        </label>
+        <button class="btn btn-primary" type="submit">
+          {hasPassword ? 'Update password' : 'Save password'}
+        </button>
       </form>
     </div>
   </section>
