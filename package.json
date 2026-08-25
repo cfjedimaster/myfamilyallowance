@@ -1,0 +1,34 @@
+{
+  "name": "myfamilyallowance",
+  "type": "module",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "db:generate": "drizzle-kit generate",
+    "netlify:dev": "netlify dev"
+  },
+  "dependencies": {
+    "@astrojs/netlify": "^8.2.4",
+    "@netlify/database": "^2.0.0",
+    "astro": "^7.2.6",
+    "bcryptjs": "^3.0.3",
+    "cookie": "^2.0.1",
+    "drizzle-orm": "^1.0.0-beta.22",
+    "iron-session": "^8.0.4"
+  },
+  "allowScripts": {
+    "esbuild": true
+  },
+  "devDependencies": {
+    "@netlify/functions": "^6.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie": "^0.6.0",
+    "drizzle-kit": "^1.0.0-beta.22"
+  }
+}

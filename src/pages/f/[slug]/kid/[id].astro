@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { requireFamilyAccess } from '../../../../lib/auth';
+import { getKidBalance, getOwnedKid, listTransactions } from '../../../../lib/data';
+import { formatMoney } from '../../../../lib/money';
+
+const slug = Astro.params.slug;
+const kidId = Astro.params.id;
+if (!slug || !kidId || !/^[a-z0-9]{5}$/.test(slug)) {
+  return Astro.redirect('/');
+}
+
+const owner = await requireFamilyAccess(Astro.cookies, slug);
+if (!owner) {
+  return Astro.redirect(`/f/${slug}`);
+}
+
+const kid = await getOwnedKid(owner.id, kidId);
+if (!kid) {
+  return new Response('Not found', { status: 404 });
+}
+
+const page = Math.max(1, Number.parseInt(Astro.url.searchParams.get('page') || '1', 10) || 1);
+const { items, hasMore } = await listTransactions(kid.id, page, 20);
+const balance = await getKidBalance(kid.id);
+---
+
+<BaseLayout title={`${kid.name} · My Family Allowance`}>
+  <Fragment slot="nav">
+    <a class="btn btn-secondary btn-small" href={`/f/${slug}`}>All kids</a>
+  </Fragment>
+
+  <section style="padding: 1rem 0 2.5rem">
+    <h1>{kid.name}</h1>
+    <p class:list={['balance', { neg: balance < 0 }]}>{formatMoney(balance)}</p>
+    <p class="meta">Weekly allowance {formatMoney(kid.weeklyAllowanceCents)}</p>
+
+    <div class="panel">
+      <h2>Transaction history</h2>
+      {items.length === 0 ? (
+        <p class="muted">No transactions yet.</p>
+      ) : (
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Memo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((tx) => (
+                <tr>
+                  <td>
+                    {tx.createdAt.toLocaleString('en-US', {
+                      timeZone: 'America/Chicago',
+                      dateStyle: 'medium',
+                      timeStyle: 'short',
+                    })}
+                  </td>
+                  <td style={tx.amountCents < 0 ? 'color:var(--coral)' : 'color:var(--leaf-deep)'}>
+                    {formatMoney(tx.amountCents)}
+                  </td>
+                  <td>{tx.memo || (tx.fromAllowance ? 'Allowance added!' : '—')}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <div class="pager">
+        {page > 1 ? (
+          <a class="btn btn-secondary btn-small" href={`/f/${slug}/kid/${kid.id}?page=${page - 1}`}>
+            Newer
+          </a>
+        ) : (
+          <span></span>
+        )}
+        {hasMore ? (
+          <a class="btn btn-secondary btn-small" href={`/f/${slug}/kid/${kid.id}?page=${page + 1}`}>
+            Older
+          </a>
+        ) : (
+          <span class="meta">End of history</span>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
