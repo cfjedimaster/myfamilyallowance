@@ -399,12 +399,67 @@ th {
   color: var(--muted);
 }
 
-.family-url {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+.family-url-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
   background: rgba(47, 125, 87, 0.08);
-  padding: 0.55rem 0.75rem;
+  padding: 0.35rem 0.4rem 0.35rem 0.75rem;
   border-radius: 10px;
+}
+
+.family-url {
+  flex: 1;
+  min-width: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   word-break: break-all;
+  color: inherit;
+  text-decoration: underline;
+}
+
+.family-url-copy {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.family-url-copy:hover,
+.family-url-copy.is-copied {
+  color: var(--leaf-deep);
+  background: rgba(47, 125, 87, 0.12);
+}
+
+.family-url-copied {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.35rem);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(0.15rem);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.family-url-copy.is-copied .family-url-copied {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .site-footer {

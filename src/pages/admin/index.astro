@@ -32,7 +32,21 @@ const hasPassword = Boolean(user.familyPasswordHash);
     <div class="panel">
       <h2>Family page</h2>
       <p class="meta">Share this URL with your kids. They’ll need the family password.</p>
-      <p class="family-url">{familyUrl}</p>
+      <div class="family-url-row">
+        <a class="family-url" href={familyUrl} target="_blank" rel="noopener noreferrer">{familyUrl}</a>
+        <button
+          type="button"
+          class="family-url-copy"
+          data-url={familyUrl}
+          aria-label="Copy URL"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="family-url-copied" aria-hidden="true">Copied!</span>
+        </button>
+      </div>
 
       <form class="form-grid" method="POST" action="/api/admin/family-password" style="margin-top:1rem">
         <label>
@@ -150,4 +164,24 @@ const hasPassword = Boolean(user.familyPasswordHash);
       )}
     </div>
   </section>
+
+  <script>
+    document.querySelector('.family-url-copy')?.addEventListener('click', async (event) => {
+      const btn = event.currentTarget;
+      if (!(btn instanceof HTMLButtonElement)) return;
+      const url = btn.dataset.url;
+      if (!url) return;
+      try {
+        await navigator.clipboard.writeText(url);
+        btn.setAttribute('aria-label', 'Copied!');
+        btn.classList.add('is-copied');
+        setTimeout(() => {
+          btn.setAttribute('aria-label', 'Copy URL');
+          btn.classList.remove('is-copied');
+        }, 1500);
+      } catch {
+        // Clipboard API unavailable or denied
+      }
+    });
+  </script>
 </BaseLayout>
