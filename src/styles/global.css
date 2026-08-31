@@ -468,6 +468,54 @@ th {
   font-size: 0.92rem;
 }
 
+.site-footer p {
+  margin: 0;
+}
+
+.footer-legal {
+  margin-top: 0.65rem;
+}
+
+.footer-legal a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.footer-legal a:hover {
+  color: var(--ink);
+}
+
+.footer-legal span {
+  margin: 0 0.4rem;
+}
+
+.legal {
+  max-width: 40rem;
+  padding: 0 0 3rem;
+}
+
+.legal h1 {
+  margin-bottom: 0.35rem;
+}
+
+.legal-updated {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-bottom: 1.5rem;
+}
+
+.legal h2 {
+  font-size: 1.15rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal p {
+  margin: 0 0 0.85rem;
+  line-height: 1.55;
+}
+
 .features {
   display: grid;
   gap: 1rem;

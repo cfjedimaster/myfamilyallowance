@@ -5,7 +5,7 @@ import { getParentSession } from '../lib/auth';
 const parent = await getParentSession(Astro.cookies);
 ---
 
-<BaseLayout>
+<BaseLayout showLegalLinks>
   <Fragment slot="nav">
     {parent ? (
       <>

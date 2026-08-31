@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-08-31
+
+- Add Privacy Policy and Terms of Use pages, linked from the home page footer.
+
 ## 2026-08-25
 
 - Move the admin family URL and password panel below the kids sections.
